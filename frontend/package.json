@@ -1,0 +1,39 @@
+{
+  "name": "ai-tutoring-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Frontend for AI Educational Tutoring Platform",
+  "scripts": {
+    "dev": "next dev -p 5000",
+    "build": "next build",
+    "start": "next start -p 5000",
+    "lint": "next lint",
+    "export": "next export"
+  },
+  "dependencies": {
+    "next": "^14.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "bootstrap": "^5.3.0",
+    "@fortawesome/fontawesome-free": "^6.4.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "eslint-config-next": "^14.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "keywords": [
+    "ai",
+    "education",
+    "tutoring",
+    "quiz",
+    "learning",
+    "india",
+    "ncert"
+  ],
+  "author": "AI Tutoring Platform",
+  "license": "MIT"
+}
