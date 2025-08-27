@@ -7,7 +7,6 @@ from typing import Optional
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.openapi.utils import get_openapi
 from starlette.responses import FileResponse, JSONResponse, RedirectResponse
 
 from database import init_db, get_db
@@ -39,26 +38,9 @@ app = FastAPI(
     description="AI-powered tutoring platform with vector search and quiz generation",
     version="1.0.0",
     lifespan=lifespan,
-    docs_url="/api/docs",
-    redoc_url="/api/redoc",
-    openapi_url="/api/openapi.json",
+    root_path=os.getenv("ROOT_PATH", ""),
+    # openapi_url="/api/openapi.json",
 )
-
-def custom_openapi():
-    if app.openapi_schema:
-        return app.openapi_schema
-    schema = get_openapi(
-        title=app.title,
-        version=app.version,
-        description=app.description,
-        routes=app.routes,
-    )
-    # Critical: prevent Swagger from prefixing /api again
-    schema["servers"] = [{"url": ""}]
-    app.openapi_schema = schema
-    return app.openapi_schema
-
-app.openapi = custom_openapi
 
 # --- CORS -------------------------------------------------------------------
 # Use settings if provided; otherwise default to permissive for now.
