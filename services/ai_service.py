@@ -3,6 +3,7 @@ from typing import List, Dict, Any, Optional
 from config import settings
 from utils.prompts import get_tutor_prompt, get_quiz_generation_prompt, get_grading_prompt
 import logging
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -49,7 +50,7 @@ class AIService:
             # Add current student message
             messages.append({"role": "user", "content": student_message})
             
-            # Generate response
+            # Generate response - OLD API SYNTAX
             response = await openai.ChatCompletion.acreate(
                 model=self.model,
                 messages=messages,
@@ -57,12 +58,13 @@ class AIService:
                 temperature=self.temperature
             )
             
-            assistant_message = response.choices[0].message.content
+            # OLD API ACCESS PATTERN
+            assistant_message = response['choices'][0]['message']['content']
             
             return {
                 "response": assistant_message,
                 "context_used": len(context_documents),
-                "tokens_used": response.usage.total_tokens
+                "tokens_used": response['usage']['total_tokens']
             }
             
         except Exception as e:
@@ -105,13 +107,12 @@ class AIService:
                 temperature=0.3  # Lower temperature for more consistent quiz generation
             )
             
-            # Parse the response (expecting JSON format)
-            import json
-            quiz_data = json.loads(response.choices[0].message.content)
+            # Parse the response (expecting JSON format) - OLD API ACCESS
+            quiz_data = json.loads(response['choices'][0]['message']['content'])
             
             return {
                 "quiz_data": quiz_data,
-                "tokens_used": response.usage.total_tokens
+                "tokens_used": response['usage']['total_tokens']
             }
             
         except Exception as e:
@@ -146,16 +147,15 @@ class AIService:
                 temperature=0.2  # Lower temperature for consistent grading
             )
             
-            # Parse grading response
-            import json
-            grading_result = json.loads(response.choices[0].message.content)
+            # Parse grading response - OLD API ACCESS
+            grading_result = json.loads(response['choices'][0]['message']['content'])
             
             return {
                 "score": grading_result.get("score", 0),
                 "feedback": grading_result.get("feedback", ""),
                 "explanation": grading_result.get("explanation", ""),
                 "is_correct": grading_result.get("is_correct", False),
-                "tokens_used": response.usage.total_tokens
+                "tokens_used": response['usage']['total_tokens']
             }
             
         except Exception as e:
@@ -204,8 +204,8 @@ class AIService:
                 temperature=0.5
             )
             
-            import json
-            analysis = json.loads(response.choices[0].message.content)
+            # OLD API ACCESS
+            analysis = json.loads(response['choices'][0]['message']['content'])
             
             return analysis
             
