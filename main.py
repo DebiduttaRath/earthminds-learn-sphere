@@ -39,7 +39,7 @@ app = FastAPI(
     version="1.0.0",
     lifespan=lifespan,
     root_path=os.getenv("ROOT_PATH", ""),
-    openapi_url="/api/openapi.json",
+    # openapi_url="/api/openapi.json",
 )
 
 # --- CORS -------------------------------------------------------------------
