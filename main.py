@@ -38,6 +38,7 @@ app = FastAPI(
     description="AI-powered tutoring platform with vector search and quiz generation",
     version="1.0.0",
     lifespan=lifespan,
+    root_path=os.getenv("ROOT_PATH", ""),
 )
 
 # --- CORS -------------------------------------------------------------------
