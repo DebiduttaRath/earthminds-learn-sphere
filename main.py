@@ -54,10 +54,10 @@ app.add_middleware(
 )
 
 # --- Routers ----------------------------------------------------------------
-app.include_router(tutor_router, prefix="/api/tutor", tags=["tutoring"])
-app.include_router(quiz_router, prefix="/api/quiz", tags=["quiz"])
-app.include_router(grade_router, prefix="/api/grade", tags=["grading"])
-app.include_router(documents_router, prefix="/api/documents", tags=["documents"])
+app.include_router(tutor_router, prefix="/tutor", tags=["tutoring"])
+app.include_router(quiz_router, prefix="/quiz", tags=["quiz"])
+app.include_router(grade_router, prefix="/grade", tags=["grading"])
+app.include_router(documents_router, prefix="/documents", tags=["documents"])
 
 # --- Frontend / Root handling ----------------------------------------------
 FRONTEND_DIR = os.getenv("FRONTEND_DIR", "frontend")
